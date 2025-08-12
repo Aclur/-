@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>运维工程师面试资料大全</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+  
+  <!-- Tailwind配置 - 修改主色调为灰白色系 -->
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#808080', // 灰色作为主色调
+            secondary: '#E0E0E0', // 浅灰色作为辅助色
+            dark: '#212121',
+            light: '#F5F5F5'
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+          },
+        },
+      }
+    }
+  </script>
+  
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .content-auto {
+        content-visibility: auto;
+      }
+      .text-shadow {
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      }
+      .transition-height {
+        transition: max-height 0.3s ease-in-out;
+      }
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200 transition-colors duration-300">
+  <!-- 顶部导航栏 -->
+  <header class="sticky top-0 z-50 bg-white dark:bg-gray-700 shadow-sm">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <h1 class="text-xl font-bold text-primary flex items-center">
+        <i class="fa fa-server mr-2"></i>运维面试资料大全
+      </h1>
+      <div class="flex items-center space-x-4">
+        <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+          <i class="fa fa-moon-o dark:hidden"></i>
+          <i class="fa fa-sun-o hidden dark:inline-block"></i>
+        </button>
+        <button id="scroll-top" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors">
+          <i class="fa fa-arrow-up"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div class="container mx-auto flex flex-col lg:flex-row">
+    <!-- 侧边导航 -->
+    <aside id="sidebar" class="lg:w-1/4 bg-white dark:bg-gray-700 lg:h-[calc(100vh-60px)] lg:sticky lg:top-[60px] overflow-y-auto shadow-md">
+      <nav class="p-4">
+        <h2 class="text-lg font-semibold mb-4 pb-2 border-b border-gray-200 dark:border-gray-600">目录</h2>
+        <ul class="space-y-1">
+          <li>
+            <a href="#linux" class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center">
+              <i class="fa fa-linux w-6 text-primary"></i>
+              <span>Linux基础</span>
+            </a>
+          </li>
+          <li>
+            <a href="#shell" class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center">
+              <i class="fa fa-terminal w-6 text-primary"></i>
+              <span>Shell脚本</span>
+            </a>
+          </li>
+          <li>
+            <a href="#container" class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center">
+              <i class="fa fa-cubes w-6 text-primary"></i>
+              <span>容器技术</span>
+            </a>
+          </li>
+          <li>
+            <a href="#monitor" class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center">
+              <i class="fa fa-line-chart w-6 text-primary"></i>
+              <span>监控系统</span>
+            </a>
+          </li>
+          <li>
+            <a href="#db" class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center">
+              <i class="fa fa-database w-6 text-primary"></i>
+              <span>数据库运维</span>
+            </a>
+          </li>
+          <li>
+            <a href="#network" class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center">
+              <i class="fa fa-exchange w-6 text-primary"></i>
+              <span>网络知识</span>
+            </a>
+          </li>
+          <li>
+            <a href="#cloud" class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center">
+              <i class="fa fa-cloud w-6 text-primary"></i>
+              <span>云服务</span>
+            </a>
+          </li>
+          <li>
+            <a href="#security" class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center">
+              <i class="fa fa-shield w-6 text-primary"></i>
+              <span>安全运维</span>
+            </a>
+          </li>
+          <li>
+            <a href="#automation" class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center">
+              <i class="fa fa-cogs w-6 text-primary"></i>
+              <span>自动化运维</span>
+            </a>
+          </li>
+          <li>
+            <a href="#storage" class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center">
+              <i class="fa fa-hdd-o w-6 text-primary"></i>
+              <span>存储技术</span>
+            </a>
+          </li>
+          <li>
+            <a href="#architecture" class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center">
+              <i class="fa fa-sitemap w-6 text-primary"></i>
+              <span>架构设计</span>
+            </a>
+          </li>
+          <li>
+            <a href="#troubleshoot" class="block p-2 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors flex items-center">
+              <i class="fa fa-wrench w-6 text-primary"></i>
+              <span>故障排查</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </aside>
+
+    <!-- 主内容区 -->
+    <main class="lg:w-3/4 p-4 lg:p-8">
+      <div class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 mb-8">
+        <h2 class="text-2xl font-bold mb-4 text-primary">运维工程师面试指南</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-4">
+          这份资料涵盖了运维工程师面试中常见的知识点和问题，包括Linux基础、Shell脚本、容器技术、监控系统等多个方面，
+          帮助你全面准备面试，顺利拿到心仪的offer。
+        </p>
+        <div class="flex flex-wrap gap-2">
+          <span class="px-3 py-1 bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-full text-sm">
+            <i class="fa fa-clock-o"></i> 建议学习时长: 2-3周
+          </span>
+          <span class="px-3 py-1 bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-full text-sm">
+            <i class="fa fa-check-circle"></i> 知识点: 100+
+          </span>
+          <span class="px-3 py-1 bg-gray-100 dark:bg-gray-600 text-gray-800 dark:text-gray-200 rounded-full text-sm">
+            <i class="fa fa-question-circle"></i> 面试题: 200+
+          </span>
+        </div>
+      </div>
+
+      <!-- Linux基础 - 默认展开状态 -->
+      <section id="linux" class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 mb-8 transform hover:shadow-lg transition-shadow">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold text-gray-800 dark:text-white flex items-center">
+            <i class="fa fa-linux text-primary mr-2 text-2xl"></i>Linux基础
+          </h2>
+          <i class="fa fa-chevron-down text-gray-500"></i>
+        </div>
+        
+        <div class="section-content">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">核心知识点</h3>
+            <ul class="space-y-2 pl-5">
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>文件系统</strong>: ext4、xfs特性及区别，inode结构，文件权限管理</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>进程管理</strong>: 进程状态（R、S、D、Z、T），进程调度，fork/exec机制</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>内存管理</strong>: 虚拟内存原理，页表机制，OOM killer，swap空间</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>用户与权限</strong>: UID/GID，文件权限（rwx），ACL，sudo配置</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>服务管理</strong>: systemd vs sysvinit，服务启动级别，unit文件</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>包管理</strong>: rpm/yum，dpkg/apt，源码编译安装</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">常用命令</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-gray-50 dark:bg-gray-600 p-3 rounded">
+                <p class="font-medium">文件操作</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">ls, cd, pwd, mkdir, rm, cp, mv, touch, ln</p>
+              </div>
+              <div class="bg-gray-50 dark:bg-gray-600 p-3 rounded">
+                <p class="font-medium">文本处理</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">cat, grep, sed, awk, head, tail, less, wc</p>
+              </div>
+              <div class="bg-gray-50 dark:bg-gray-600 p-3 rounded">
+                <p class="font-medium">进程管理</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">ps, top, htop, pstree, kill, pkill, pgrep</p>
+              </div>
+              <div class="bg-gray-50 dark:bg-gray-600 p-3 rounded">
+                <p class="font-medium">系统信息</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">df, du, free, vmstat, iostat, netstat, ss</p>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">面试高频问题</h3>
+            <div class="space-y-4">
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">1. 如何查看系统中占用CPU最高的进程？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">使用top命令（按P排序）或ps aux --sort=-%cpu | head -n 10</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">2. 什么是inode？它包含哪些信息？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">inode是文件系统中的数据结构，包含文件元数据（权限、所有者、大小、时间戳等），但不包含文件名。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">3. 如何查找近7天内被修改过的文件？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">find /path -mtime -7</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">4. 解释一下Linux系统的启动流程？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">BIOS/UEFI → 引导加载程序(GRUB) → 内核初始化 → systemd初始化 → 登录界面</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">5. 如何限制用户的磁盘空间使用？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">使用quota工具，配置用户或组的磁盘配额</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Shell脚本 - 默认展开状态 -->
+      <section id="shell" class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 mb-8 transform hover:shadow-lg transition-shadow">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold text-gray-800 dark:text-white flex items-center">
+            <i class="fa fa-terminal text-primary mr-2 text-2xl"></i>Shell脚本
+          </h2>
+          <i class="fa fa-chevron-down text-gray-500"></i>
+        </div>
+        
+        <div class="section-content">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">核心知识点</h3>
+            <ul class="space-y-2 pl-5">
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>变量</strong>: 环境变量、局部变量、位置参数（$1, $2...）、特殊变量（$#, $*, $@, $?, $$）</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>控制结构</strong>: if-else, case, for循环, while循环, until循环</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>函数</strong>: 函数定义与调用，参数传递，返回值处理</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>输入输出</strong>: 重定向（>, >>, <, <<），管道（|），here document</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>文本处理</strong>: 结合grep, sed, awk进行文本分析和处理</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>脚本调试</strong>: set -x, set -e, 错误处理机制</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">常用脚本示例</h3>
+            <div class="bg-gray-200 dark:bg-gray-600 text-gray-800 p-4 rounded-md overflow-x-auto">
+              <p class="text-gray-600 mb-2"># 1. 批量文件重命名</p>
+              <pre class="text-gray-800">#!/bin/bash
+count=1
+for file in *.txt; do
+    mv "$file" "file_$count.txt"
+    ((count++))
+done</pre>
+
+              <p class="text-gray-600 mt-4 mb-2"># 2. 日志分析（统计访问IP）</p>
+              <pre class="text-gray-800">#!/bin/bash
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 logfile"
+    exit 1
+fi
+
+awk '{print $1}' $1 | sort | uniq -c | sort -nr | head -10</pre>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">面试高频问题</h3>
+            <div class="space-y-4">
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">1. $*和$@的区别是什么？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">在不加引号时没有区别，都表示所有参数；加引号时，"$*"将所有参数视为一个整体，"$@"将每个参数视为独立个体。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">2. 如何在脚本中捕获信号（如Ctrl+C）？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">使用trap命令，例如：trap 'echo "Ctrl+C pressed"' SIGINT</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">3. 如何判断一个文件是否存在？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">使用if [ -f "filename" ]; then ... fi</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">4. 如何在脚本中处理命令行参数？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">使用位置参数$1, $2等，或使用getopts处理选项参数</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">5. 写一个脚本，监控服务器磁盘使用率，超过80%则报警</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">
+                  df -h | awk 'NR>1 {gsub("%",""); if($5>80) print "Disk " $1 " usage is " $5 "%"}'
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 容器技术 - 默认展开状态 -->
+      <section id="container" class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 mb-8 transform hover:shadow-lg transition-shadow">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold text-gray-800 dark:text-white flex items-center">
+            <i class="fa fa-cubes text-primary mr-2 text-2xl"></i>容器技术
+          </h2>
+          <i class="fa fa-chevron-down text-gray-500"></i>
+        </div>
+        
+        <div class="section-content">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">核心知识点</h3>
+            <ul class="space-y-2 pl-5">
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>Docker基础</strong>: 镜像、容器、仓库，Docker架构（client-server）</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>容器原理</strong>: Namespace（PID、NET、MNT等），Cgroups，UnionFS</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>Docker Compose</strong>: 多容器应用编排，yaml配置文件</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>Kubernetes核心概念</strong>: Pod、Service、Deployment、ConfigMap、Secret</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>K8s控制器</strong>: Deployment、StatefulSet、DaemonSet、Job、CronJob</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>容器网络</strong>: Docker网络模式，K8s网络模型，CNI插件</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>容器存储</strong>: Docker数据卷，K8s PV/PVC，StorageClass</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">常用命令</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-gray-50 dark:bg-gray-600 p-3 rounded">
+                <p class="font-medium">Docker命令</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                  docker run, docker ps, docker images, docker pull<br>
+                  docker exec, docker logs, docker stop, docker rm<br>
+                  docker build, docker push, docker volume, docker network
+                </p>
+              </div>
+              <div class="bg-gray-50 dark:bg-gray-600 p-3 rounded">
+                <p class="font-medium">Kubernetes命令</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                  kubectl get pods, kubectl describe pod<br>
+                  kubectl create, kubectl apply, kubectl delete<br>
+                  kubectl logs, kubectl exec, kubectl port-forward<br>
+                  kubectl scale, kubectl rollout, kubectl config
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">面试高频问题</h3>
+            <div class="space-y-4">
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">1. 容器与虚拟机的区别是什么？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">容器共享宿主机内核，启动快、资源占用少；虚拟机有独立内核，隔离性更好但资源开销大。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">2. Docker镜像的分层结构是什么？有什么好处？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">镜像采用分层文件系统，每层只读，容器启动时添加可写层。好处：共享相同层，节省空间；便于版本控制和复用。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">3. 什么是Kubernetes的Pod？为什么需要Pod？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Pod是K8s最小部署单元，包含一个或多个容器，共享网络和存储。用于部署紧密关联的容器，确保它们在同一节点运行并协同工作。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">4. Deployment和StatefulSet的区别？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Deployment用于无状态应用，Pod名称随机；StatefulSet用于有状态应用，提供稳定网络标识和有序部署/扩展/更新。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">5. 如何实现Kubernetes集群的高可用？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">多master节点，使用负载均衡；etcd集群（奇数节点）；关键组件多副本部署；使用PVC保证数据持久化。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 监控系统 - 默认展开状态 -->
+      <section id="monitor" class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 mb-8 transform hover:shadow-lg transition-shadow">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold text-gray-800 dark:text-white flex items-center">
+            <i class="fa fa-line-chart text-primary mr-2 text-2xl"></i>监控系统
+          </h2>
+          <i class="fa fa-chevron-down text-gray-500"></i>
+        </div>
+        
+        <div class="section-content">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">核心知识点</h3>
+            <ul class="space-y-2 pl-5">
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>监控指标</strong>: 四大黄金指标（延迟、流量、错误率、饱和度），RED方法，USE方法</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>Prometheus</strong>: 时序数据库，数据模型（metric, label, timestamp, value），Pull模式</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>Grafana</strong>: 数据可视化，仪表盘配置，告警设置</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>告警系统</strong>: 告警级别，告警路由，抑制与分组，通知渠道（邮件、短信、钉钉等）</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>日志管理</strong>: ELK/EFK栈，日志收集、存储、分析、可视化</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>APM工具</strong>: 应用性能监控，调用链追踪，性能瓶颈分析</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">常用监控工具</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-3 hover:border-primary transition-colors">
+                <h4 class="font-medium mb-1">Prometheus + Grafana</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400">时序数据监控与可视化，适合指标监控</p>
+              </div>
+              <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-3 hover:border-primary transition-colors">
+                <h4 class="font-medium mb-1">ELK Stack</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400">Elasticsearch, Logstash, Kibana，用于日志管理</p>
+              </div>
+              <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-3 hover:border-primary transition-colors">
+                <h4 class="font-medium mb-1">Zabbix</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400">全功能监控解决方案，支持多种监控方式</p>
+              </div>
+              <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-3 hover:border-primary transition-colors">
+                <h4 class="font-medium mb-1">Nagios</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400">老牌监控工具，插件丰富，适合服务器监控</p>
+              </div>
+              <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-3 hover:border-primary transition-colors">
+                <h4 class="font-medium mb-1">Jaeger/Zipkin</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400">分布式追踪系统，用于微服务调用链监控</p>
+              </div>
+              <div class="border border-gray-200 dark:border-gray-600 rounded-lg p-3 hover:border-primary transition-colors">
+                <h4 class="font-medium mb-1">Datadog/New Relic</h4>
+                <p class="text-sm text-gray-600 dark:text-gray-400">SaaSaaS监控平台，全栈监控解决方案</p>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">面试高频问题</h3>
+            <div class="space-y-4">
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">1. Prometheus的数据模型是什么样的？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">时间序列数据，由指标名称(metric name)和标签(labels)唯一标识，每个时间序列是一组带有时间戳的值。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">2. 如何设计一个完整的监控体系？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">基础设施监控→应用监控→业务监控→用户体验监控，结合日志、指标、追踪数据，建立完善的告警机制和可视化。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">3. 什么是PromQL？举例说明其用途。</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Prometheus查询语言，用于从时间序列数据中查询和聚合数据。例如：http_requests_total{status="200"} 表示所有状态码为200的HTTP请求总数。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">4. 如何处理监控系统的告警风暴？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">设置告警抑制和分组，按业务优先级排序，实现告警聚合，避免重复告警，建立告警升级机制。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">5. ELK Stack中各组件的作用是什么？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">Elasticsearch：存储和索引日志；Logstash：收集和处理日志；Kibana：日志可视化和查询分析。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 数据库运维 - 默认展开状态 -->
+      <section id="db" class="bg-white dark:bg-gray-700 rounded-lg shadow-md p-6 mb-8 transform hover:shadow-lg transition-shadow">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold text-gray-800 dark:text-white flex items-center">
+            <i class="fa fa-database text-primary mr-2 text-2xl"></i>数据库运维
+          </h2>
+          <i class="fa fa-chevron-down text-gray-500"></i>
+        </div>
+        
+        <div class="section-content">
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">核心知识点</h3>
+            <ul class="space-y-2 pl-5">
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>MySQL架构</strong>: 连接层、服务层、存储引擎层，InnoDB与MyISAM区别</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>索引优化</strong>: B+树索引，聚簇索引vs非聚簇索引，索引失效场景</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>事务与锁</strong>: ACID特性，隔离级别，行锁、表锁、间隙锁</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>备份恢复</strong>: 冷备份vs热备份，物理备份vs逻辑备份，Point-in-Time Recovery</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>高可用架构</strong>: 主从复制，主主复制，MGR(MariaDB Galera Cluster)</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>性能调优</strong>: 慢查询分析，explain执行计划，参数优化，SQL优化</span>
+              </li>
+              <li class="flex items-start">
+                <i class="fa fa-angle-right text-primary mt-1 mr-2"></i>
+                <span><strong>NoSQL数据库</strong>: Redis、MongoDB特性及运维要点</span>
+              </li>
+            </ul>
+          </div>
+          
+          <div class="mb-6">
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">常用操作与工具</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div class="bg-gray-50 dark:bg-gray-600 p-3 rounded">
+                <p class="font-medium">MySQL常用命令</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                  show databases/tables/processlist<br>
+                  explain [SQL语句]<br>
+                  mysqldump备份数据库<br>
+                  grant授权，revoke撤销权限<br>
+                  show variables/status
+                </p>
+              </div>
+              <div class="bg-gray-50 dark:bg-gray-600 p-3 rounded">
+                <p class="font-medium">常用工具</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                  mysqldump: 逻辑备份<br>
+                  xtrabackup: 物理备份<br>
+                  pt-*工具集: 性能分析、主从同步等<br>
+                  Redis-cli: Redis命令行工具<br>
+                  mongo: MongoDB命令行工具
+                </p>
+              </div>
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-3 text-gray-700 dark:text-gray-300">面试高频问题</h3>
+            <div class="space-y-4">
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">1. MySQL主从复制的原理是什么？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">主库开启binlog，从库通过IO线程读取主库binlog写入relay log，SQL线程执行relay log中的事件，实现数据同步。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">2. 如何优化MySQL查询性能？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">添加合适的索引，避免全表扫描；优化SQL语句，避免使用select *；分库分表；调整MySQL参数；增加缓存等。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">3. Redis的持久化机制有哪些？区别是什么？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">RDB：定时快照，性能好但可能丢失数据；AOF：记录所有写操作，数据安全性高但文件大，恢复慢。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">4. 什么是数据库事务的ACID特性？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">原子性(Atomicity)、一致性(Consistency)、隔离性(Isolation)、持久性(Durability)。</p>
+              </div>
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <p class="font-medium">5. 如何处理MySQL主从延迟？</p>
+                <p class="text-gray-600 dark:text-gray-400 text-sm">优化主库写入性能；升级从库硬件；使用并行复制；避免大事务；考虑使用中间件如MyCat、ProxySQL等。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+</main>
+</div>
+
+<script>
+  // 主题切换功能
+  const themeToggle = document.getElementById('theme-toggle');
+  themeToggle.addEventListener('click', () => {
+    document.documentElement.classList.toggle('dark');
+    localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+  });
+  
+  // 检查本地存储的主题偏好
+  if (localStorage.getItem('theme') === 'dark' || 
+      (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+  
+  // 回到顶部按钮
+  const scrollTopBtn = document.getElementById('scroll-top');
+  scrollTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+</script>
+</body>
+</html>
